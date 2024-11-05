@@ -21,13 +21,13 @@ jobs:
       - name: Download OpenImageDenoise
         run: |
           Invoke-WebRequest -Uri "https://github.com/OpenImageDenoise/oidn/releases/download/v2.1.0/oidn-2.1.0.x64.windows.zip" -OutFile "C:\oidn-2.1.0.x64.windows.zip"
-          Expand-Archive "C:\oidn-2.1.0.x64.windows.zip" -DestinationPath "C:\" -Verbose
+          Expand-Archive "C:\oidn-2.1.0.x64.windows.zip" -DestinationPath "C:\nuke_build_directory" -Verbose
 
       - name: Pull image
         run: docker pull ${{ env.image }}:${{ matrix.nuke_version }}-windows-latest
 
       - name: Run build
-        run: docker run --rm -v "${{ github.workspace }}:C:\nuke_build_directory" ${{ env.image }}:${{ matrix.nuke_version }}-windows-latest powershell -Command "cmake . -DOIDN_ROOT=C:\oidn-2.1.0.x64.windows -DCMAKE_GENERATOR_PLATFORM=x64 -B build ; cmake --build build --config Release"
+        run: docker run --rm -v "${{ github.workspace }}:C:\nuke_build_directory" ${{ env.image }}:${{ matrix.nuke_version }}-windows-latest powershell -Command "cmake . -DOIDN_ROOT=C:\nuke_build_directory\oidn-2.1.0.x64.windows -DCMAKE_GENERATOR_PLATFORM=x64 -B build ; cmake --build build --config Release"
 
       - uses: actions/upload-artifact@v4
         with:
