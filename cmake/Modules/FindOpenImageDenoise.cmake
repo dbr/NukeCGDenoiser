@@ -12,6 +12,9 @@ if(NOT DEFINED OIDN_ROOT)
   endif()
 endif()
 
+message("Looking at OIDN_ROOT ${OIDN_ROOT}")
+set(CMAKE_FIND_DEBUG_MODE TRUE)
+
 find_path(
   OpenImageDenoise_INCLUDE_DIR
   NAMES OpenImageDenoise/oidn.hpp
