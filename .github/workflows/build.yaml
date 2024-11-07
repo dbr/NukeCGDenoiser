@@ -21,7 +21,7 @@ jobs:
       - name: Download OpenImageDenoise
         run: |
           Invoke-WebRequest -Uri "https://github.com/OpenImageDenoise/oidn/releases/download/v2.1.0/oidn-2.1.0.x64.windows.zip" -OutFile "C:\oidn-2.1.0.x64.windows.zip"
-          Expand-Archive "C:\oidn-2.1.0.x64.windows.zip" -DestinationPath "C:\nuke_build_directory" -Verbose
+          Expand-Archive "C:\oidn-2.1.0.x64.windows.zip" -DestinationPath "${{ github.workspace }}" -Verbose
 
       - name: Pull image
         run: docker pull ${{ env.image }}:${{ matrix.nuke_version }}-windows-latest
